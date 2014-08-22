@@ -10,13 +10,40 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.landasource</groupId>
+	<groupId>com.landasource</groupId>
 	<artifactId>wiidget-ninja-module</artifactId>
 	<packaging>jar</packaging>
 	<version>0.1.0</version>
 
 	<name>wiidget-ninja-module</name>
-	<url>http://maven.apache.org</url>
+
+	<description>Wiidget langauage HTML library.</description>
+	<url>https://github.com/landasource/wiidget-ninja-module</url>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/landasource/wiidget-ninja-module</url>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>zsolt.lengyel.it</id>
+			<name>Zsolt Lengyel</name>
+			<timezone>CET</timezone>
+			<email>zsolt.lengyel.it@gmail.com</email>
+		</developer>
+	</developers>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<build>
 		<plugins>
@@ -32,11 +59,27 @@
 			</plugin>
 
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
-						<phase>deploy</phase>
 						<goals>
 							<goal>jar-no-fork</goal>
 						</goals>
@@ -45,18 +88,29 @@
 			</plugin>
 
 			<plugin>
-				<!-- explicitly define maven-deploy-plugin after other to force exec 
-					order -->
-				<artifactId>maven-deploy-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
 				<executions>
 					<execution>
-						<id>deploy</id>
-						<phase>deploy</phase>
+						<id>attach-javadocs</id>
 						<goals>
-							<goal>deploy</goal>
+							<goal>jar</goal>
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.2</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
 			</plugin>
 
 		</plugins>
@@ -86,10 +140,6 @@
 		</snapshotRepository>
 	</distributionManagement>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-
 	<dependencies>
 
 		<dependency>
@@ -99,7 +149,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.landasource</groupId>
+			<groupId>com.landasource</groupId>
 			<artifactId>wiidget</artifactId>
 			<version>0.1.0</version>
 		</dependency>

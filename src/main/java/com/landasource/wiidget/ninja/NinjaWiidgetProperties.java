@@ -1,8 +1,8 @@
-package org.landa.wiidget.ninja;
+package com.landasource.wiidget.ninja;
 
 import ninja.utils.NinjaProperties;
 
-import org.landa.wiidget.util.DefaultWiidgetProperties;
+import com.landasource.wiidget.util.DefaultWiidgetProperties;
 
 import com.google.inject.Inject;
 

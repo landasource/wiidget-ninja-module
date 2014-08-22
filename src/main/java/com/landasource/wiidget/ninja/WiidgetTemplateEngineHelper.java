@@ -1,4 +1,4 @@
-package org.landa.wiidget.ninja;
+package com.landasource.wiidget.ninja;
 
 import java.io.InputStream;
 
@@ -6,8 +6,8 @@ import ninja.Result;
 import ninja.Route;
 import ninja.utils.NinjaConstant;
 
-import org.landa.wiidget.WiidgetView;
-import org.landa.wiidget.util.WiidgetProperties;
+import com.landasource.wiidget.WiidgetView;
+import com.landasource.wiidget.util.WiidgetProperties;
 
 import com.google.inject.Inject;
 

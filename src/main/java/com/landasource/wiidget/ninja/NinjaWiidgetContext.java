@@ -1,9 +1,9 @@
 /**
  *
  */
-package org.landa.wiidget.ninja;
+package com.landasource.wiidget.ninja;
 
-import org.landa.wiidget.context.DefaultWiidgetContext;
+import com.landasource.wiidget.context.DefaultWiidgetContext;
 
 import com.google.inject.servlet.RequestScoped;
 

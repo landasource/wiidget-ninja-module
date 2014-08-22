@@ -1,9 +1,9 @@
-package org.landa.wiidget.ninja;
+package com.landasource.wiidget.ninja;
 
-import org.landa.wiidget.engine.ObjectFactory;
-import org.landa.wiidget.engine.configuration.DefaultConfiguration;
-import org.landa.wiidget.url.URLResolver;
-import org.landa.wiidget.validation.WiidgetValidator;
+import com.landasource.wiidget.engine.ObjectFactory;
+import com.landasource.wiidget.engine.configuration.DefaultConfiguration;
+import com.landasource.wiidget.url.URLResolver;
+import com.landasource.wiidget.validation.WiidgetValidator;
 
 /**
  *

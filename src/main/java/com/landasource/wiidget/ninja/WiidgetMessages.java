@@ -1,4 +1,4 @@
-package org.landa.wiidget.ninja;
+package com.landasource.wiidget.ninja;
 
 import java.util.Collection;
 import java.util.Map;

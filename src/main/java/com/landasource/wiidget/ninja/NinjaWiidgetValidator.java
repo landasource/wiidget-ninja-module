@@ -1,11 +1,11 @@
-package org.landa.wiidget.ninja;
+package com.landasource.wiidget.ninja;
 
 import java.util.List;
 
-import org.landa.wiidget.Wiidget;
-import org.landa.wiidget.engine.ObjectFactory;
-import org.landa.wiidget.validation.DefaultWiidgetValidator;
-import org.landa.wiidget.validation.ValidationError;
+import com.landasource.wiidget.Wiidget;
+import com.landasource.wiidget.engine.ObjectFactory;
+import com.landasource.wiidget.validation.DefaultWiidgetValidator;
+import com.landasource.wiidget.validation.ValidationError;
 
 import com.google.inject.Inject;
 

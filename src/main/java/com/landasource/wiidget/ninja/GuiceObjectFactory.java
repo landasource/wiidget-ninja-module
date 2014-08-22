@@ -1,6 +1,6 @@
-package org.landa.wiidget.ninja;
+package com.landasource.wiidget.ninja;
 
-import org.landa.wiidget.engine.ObjectFactory;
+import com.landasource.wiidget.engine.ObjectFactory;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;

@@ -1,14 +1,14 @@
-package org.landa.wiidget.ninja;
+package com.landasource.wiidget.ninja;
 
 import ninja.template.TemplateEngine;
 
-import org.landa.wiidget.context.WiidgetContext;
-import org.landa.wiidget.engine.ObjectFactory;
-import org.landa.wiidget.engine.configuration.Configuration;
-import org.landa.wiidget.url.TransparentURLResolver;
-import org.landa.wiidget.url.URLResolver;
-import org.landa.wiidget.util.WiidgetProperties;
-import org.landa.wiidget.validation.WiidgetValidator;
+import com.landasource.wiidget.context.WiidgetContext;
+import com.landasource.wiidget.engine.ObjectFactory;
+import com.landasource.wiidget.engine.configuration.Configuration;
+import com.landasource.wiidget.url.TransparentURLResolver;
+import com.landasource.wiidget.url.URLResolver;
+import com.landasource.wiidget.util.WiidgetProperties;
+import com.landasource.wiidget.validation.WiidgetValidator;
 
 import com.google.inject.AbstractModule;
 

@@ -1,4 +1,4 @@
-package org.landa.wiidget.ninja;
+package com.landasource.wiidget.ninja;
 
 import java.io.InputStream;
 import java.util.Arrays;
@@ -16,21 +16,20 @@ import ninja.template.TemplateEngineFreemarkerI18nMethod;
 import ninja.template.TemplateEngineManager;
 import ninja.utils.ResponseStreams;
 
-import org.landa.wiidget.Renderer;
-import org.landa.wiidget.WiidgetException;
-import org.landa.wiidget.WiidgetView;
-import org.landa.wiidget.context.WiidgetContext;
-import org.landa.wiidget.engine.DefaultWiidgetFactory;
-import org.landa.wiidget.engine.ResultTransformerRegistrator;
-import org.landa.wiidget.engine.WiidgetFactory;
-import org.landa.wiidget.engine.configuration.Configuration;
-import org.landa.wiidget.util.DataMap;
-import org.landa.wiidget.util.WiidgetProperties;
-
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.landasource.wiidget.Renderer;
+import com.landasource.wiidget.WiidgetException;
+import com.landasource.wiidget.WiidgetView;
+import com.landasource.wiidget.context.WiidgetContext;
+import com.landasource.wiidget.engine.DefaultWiidgetFactory;
+import com.landasource.wiidget.engine.ResultTransformerRegistrator;
+import com.landasource.wiidget.engine.WiidgetFactory;
+import com.landasource.wiidget.engine.configuration.Configuration;
+import com.landasource.wiidget.util.DataMap;
+import com.landasource.wiidget.util.WiidgetProperties;
 
 public class WiidgetTemplateEngine implements TemplateEngine {
 
@@ -107,8 +106,8 @@ public class WiidgetTemplateEngine implements TemplateEngine {
 
 		// put all entries of the session cookie to the map.
 		// You can access the values by their key in the cookie
-		if (!context.getSessionCookie().isEmpty()) {
-			map.put("session", context.getSessionCookie().getData());
+		if (!context.getSession().isEmpty()) {
+			map.put("session", context.getSession().getData());
 		}
 
 		map.put("contextPath", context.getContextPath());
@@ -143,7 +142,7 @@ public class WiidgetTemplateEngine implements TemplateEngine {
 		//
 		// prefix keys with "flash_"
 		// ////////////////////////////////////////////////////////////////////
-		for (final Entry<String, String> entry : context.getFlashCookie().getCurrentFlashCookieData().entrySet()) {
+		for (final Entry<String, String> entry : context.getFlashScope().getCurrentFlashCookieData().entrySet()) {
 
 			String messageValue = null;
 
