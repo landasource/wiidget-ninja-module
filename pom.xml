@@ -10,7 +10,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>landa</groupId>
+	<groupId>org.landasource</groupId>
 	<artifactId>wiidget-ninja-module</artifactId>
 	<packaging>jar</packaging>
 	<version>0.1.0</version>
@@ -31,6 +31,34 @@
 				</configuration>
 			</plugin>
 
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<!-- explicitly define maven-deploy-plugin after other to force exec 
+					order -->
+				<artifactId>maven-deploy-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 
 		<resources>
@@ -47,6 +75,17 @@
 
 	</build>
 
+	<distributionManagement>
+		<repository>
+			<id>repo</id>
+			<url>https://github.com/landasource/maven-repo/raw/master/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshot-repo</id>
+			<url>https://github.com/landasource/maven-repo/raw/master/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -60,7 +99,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>landa</groupId>
+			<groupId>org.landasource</groupId>
 			<artifactId>wiidget</artifactId>
 			<version>0.1.0</version>
 		</dependency>
