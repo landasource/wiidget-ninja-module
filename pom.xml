@@ -13,7 +13,7 @@
 	<groupId>com.landasource</groupId>
 	<artifactId>wiidget-ninja-module</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1.1</version>
+	<version>0.1.2</version>
 
 	<name>wiidget-ninja-module</name>
 
@@ -43,6 +43,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<wiidget.version>0.1.2</wiidget.version>
 	</properties>
 
 	<build>
@@ -96,7 +97,7 @@
 		<dependency>
 			<groupId>com.landasource</groupId>
 			<artifactId>wiidget</artifactId>
-			<version>0.1.1</version>
+			<version>${wiidget.version}</version>
 		</dependency>
 
 		<dependency>
