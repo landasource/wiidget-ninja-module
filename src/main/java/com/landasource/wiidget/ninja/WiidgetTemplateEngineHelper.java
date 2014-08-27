@@ -1,9 +1,7 @@
 package com.landasource.wiidget.ninja;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 import javax.servlet.ServletContext;
 
@@ -17,81 +15,90 @@ import com.landasource.wiidget.util.WiidgetProperties;
 
 public class WiidgetTemplateEngineHelper {
 
-	private final WiidgetProperties properties;
-	private final ServletContext servletContext;
+    private final WiidgetProperties properties;
+    private final ServletContext servletContext;
 
-	@Inject
-	public WiidgetTemplateEngineHelper(final WiidgetProperties properties, final ServletContext servletContext) {
-		this.properties = properties;
-		this.servletContext = servletContext;
-	}
+    @Inject
+    public WiidgetTemplateEngineHelper(final WiidgetProperties properties, final ServletContext servletContext) {
+        this.properties = properties;
+        this.servletContext = servletContext;
+    }
 
-	public InputStream getResource(final Route route, final Result result) throws FileNotFoundException {
+    public String getFile(final String fileName) {
 
-		if (result.getTemplate() == null) {
+        final String webappDir = servletContext.getRealPath("/");
+        final String resourcePath = String.format("%s%s%s", webappDir, File.separator, fileName);
 
-			final Class<?> controller = route.getControllerClass();
+        return resourcePath;
+    }
 
-			final String webappDir = servletContext.getRealPath("/");
+    public String getResource(final Route route, final Result result) throws FileNotFoundException {
 
-			final String methodName = route.getControllerMethod().getName();
+        if (result.getTemplate() == null) {
 
-			final String viewName = methodName + properties.getString(WiidgetProperties.WIIDGET_FILE_EXTENSION);
+            final Class<?> controller = route.getControllerClass();
 
-			// and the final path of the controller will be something like:
-			final String resourcePath = String.format("%s%s%s%s%s", webappDir, File.separator, controller.getSimpleName(), File.separator, viewName);
+            final String webappDir = servletContext.getRealPath("/");
 
-			return new FileInputStream(resourcePath);
-		}
+            final String methodName = route.getControllerMethod().getName();
 
-		return null;
-	}
+            final String viewName = methodName + properties.getString(WiidgetProperties.WIIDGET_FILE_EXTENSION);
 
-	@SuppressWarnings("unchecked")
-	public <V extends WiidgetView> Class<V> getViewClass(final Route route, final Result result) throws ClassNotFoundException {
+            // and the final path of the controller will be something like:
+            final String resourcePath = String.format("%s%s%s%s%s", webappDir, File.separator, controller.getSimpleName(), File.separator, viewName);
 
-		String className = null;
+            return resourcePath;
+        } else {
+            return result.getTemplate();
+        }
 
-		if (result.getTemplate() == null) {
+    }
 
-			final Class<?> controller = route.getControllerClass();
+    @SuppressWarnings("unchecked")
+    public <V extends WiidgetView> Class<V> getViewClass(final Route route, final Result result) throws ClassNotFoundException {
 
-			// Calculate the correct path of the template.
-			// We always assume the template in the subdir "views"
+        String className = null;
 
-			// 1) If we are in the main project =>
-			// /controllers/ControllerName
-			// to
-			// /views/ControllerName/templateName.ftl.html
-			// 2) If we are in a plugin / subproject
-			// =>
-			// /controllers/some/packages/submoduleName/ControllerName
-			// to
-			// views/some/packages/submoduleName/ControllerName/templateName.ftl.html
+        if (result.getTemplate() == null) {
 
-			// So let's calculate the parent package of the controller:
-			final String controllerPackageName = controller.getPackage().getName();
-			// This results in something like controllers or
-			// some.package.controllers
+            final Class<?> controller = route.getControllerClass();
 
-			// Replace controller prefix with views prefix
-			final String parentPackageOfController = controllerPackageName.replaceFirst(NinjaConstant.CONTROLLERS_DIR, NinjaConstant.VIEWS_DIR);
+            // Calculate the correct path of the template.
+            // We always assume the template in the subdir "views"
 
-			// And now we rewrite everything from "." notation to directories /
-			final String parentControllerPackageAsPath = parentPackageOfController.replaceAll("\\.", "/");
+            // 1) If we are in the main project =>
+            // /controllers/ControllerName
+            // to
+            // /views/ControllerName/templateName.ftl.html
+            // 2) If we are in a plugin / subproject
+            // =>
+            // /controllers/some/packages/submoduleName/ControllerName
+            // to
+            // views/some/packages/submoduleName/ControllerName/templateName.ftl.html
 
-			final String methodName = route.getControllerMethod().getName();
+            // So let's calculate the parent package of the controller:
+            final String controllerPackageName = controller.getPackage().getName();
+            // This results in something like controllers or
+            // some.package.controllers
 
-			final String viewName = methodName.substring(0, 1).toUpperCase() + methodName.substring(1);
+            // Replace controller prefix with views prefix
+            final String parentPackageOfController = controllerPackageName.replaceFirst(NinjaConstant.CONTROLLERS_DIR, NinjaConstant.VIEWS_DIR);
 
-			// and the final path of the controller will be something like:
-			className = String.format("%s.%s.%s", parentControllerPackageAsPath, controller.getSimpleName(), viewName);
+            // And now we rewrite everything from "." notation to directories /
+            final String parentControllerPackageAsPath = parentPackageOfController.replaceAll("\\.", "/");
 
-		} else {
-			className = result.getTemplate();
-		}
+            final String methodName = route.getControllerMethod().getName();
 
-		return (Class<V>) Class.forName(className);
+            final String viewName = methodName.substring(0, 1).toUpperCase() + methodName.substring(1);
 
-	}
+            // and the final path of the controller will be something like:
+            className = String.format("%s.%s.%s", parentControllerPackageAsPath, controller.getSimpleName(), viewName);
+
+        } else {
+            className = result.getTemplate();
+        }
+
+        return (Class<V>) Class.forName(className);
+
+    }
 }
